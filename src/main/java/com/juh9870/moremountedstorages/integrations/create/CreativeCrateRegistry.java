@@ -16,7 +16,8 @@ import net.minecraftforge.common.util.Lazy;
 import java.util.function.Supplier;
 
 public class CreativeCrateRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("create", "creative_crate"));
+	public static final String REGISTRY_NAME = Utils.constructId("create", "creative_crate");
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("creative_crate", "Create Creative Crate", 0);
 	@Override
 	public Priority getPriority() {
@@ -49,6 +50,11 @@ public class CreativeCrateRegistry extends ContraptionStorageRegistry {
 		@Override
 		protected ContraptionStorageRegistry registry() {
 			return INSTANCE.get();
+		}
+
+		@Override
+		protected String getRegistryName() {
+			return REGISTRY_NAME;
 		}
 
 		@Override

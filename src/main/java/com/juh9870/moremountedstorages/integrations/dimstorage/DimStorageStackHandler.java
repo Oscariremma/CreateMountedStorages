@@ -73,6 +73,11 @@ public class DimStorageStackHandler extends InventoryWrapperStackHandler<DimChes
 	}
 
 	@Override
+	protected String getRegistryName() {
+		return DimStorageRegistry.REGISTRY_NAME;
+	}
+
+	@Override
 	public int getPriority() {
 		return DimStorageRegistry.CONFIG.getPriority();
 	}

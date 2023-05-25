@@ -9,7 +9,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.util.Lazy;
 
 public class IronChestsRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("ironchest", "chest"));
+	public static final String REGISTRY_NAME = Utils.constructId("ironchest", "chest");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.RegistryInfo CONFIG = new Config.RegistryInfo("chest", "Iron Chests");
 
 

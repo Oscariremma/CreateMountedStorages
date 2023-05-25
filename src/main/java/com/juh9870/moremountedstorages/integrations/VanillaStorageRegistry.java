@@ -20,7 +20,10 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandler;
 
 public class VanillaStorageRegistry extends ContraptionStorageRegistry {
-    public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("minecraft", "storages"));
+
+    public static final String REGISTRY_NAME = Utils.constructId("minecraft", "storages");
+
+    public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
     public static final Config.RegistryInfo CONFIG = new Config.RegistryInfo("minecraft", "Vanilla Minecraft");
 
     @Override
@@ -123,6 +126,11 @@ public class VanillaStorageRegistry extends ContraptionStorageRegistry {
         @Override
         protected ContraptionStorageRegistry registry() {
             return INSTANCE.get();
+        }
+
+        @Override
+        protected String getRegistryName() {
+            return REGISTRY_NAME;
         }
 
         protected EnumProperty<ChestType> propertyName(){

@@ -7,7 +7,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.util.Lazy;
 
 public class FramedDrawersRegistry extends StorageDrawersRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("framedcompactdrawers", "drawer"));
+
+	public static final String REGISTRY_NAME = Utils.constructId("framedcompactdrawers", "drawer");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 
 	@Override
 	public BlockEntityType<?>[] affectedStorages() {

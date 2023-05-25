@@ -18,7 +18,10 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class TrashCansRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("trashcans", "trashcan"));
+
+	public static final String REGISTRY_NAME = Utils.constructId("trashcans", "trashcan");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final TrashCanConfig CONFIG = new TrashCanConfig("trashcans", "Trash Cans");
 
 	@Override
@@ -88,6 +91,11 @@ public class TrashCansRegistry extends ContraptionStorageRegistry {
 		@Override
 		protected ContraptionStorageRegistry registry() {
 			return INSTANCE.get();
+		}
+
+		@Override
+		protected String getRegistryName() {
+			return REGISTRY_NAME;
 		}
 
 		@Override

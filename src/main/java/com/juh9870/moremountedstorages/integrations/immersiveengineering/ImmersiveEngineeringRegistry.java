@@ -9,7 +9,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.util.Lazy;
 
 public class ImmersiveEngineeringRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("immersiveengineering", "crate"));
+	public static final String REGISTRY_NAME = Utils.constructId("immersiveengineering", "crate");
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 
 	public static final Config.RegistryInfo CONFIG = new Config.RegistryInfo("crate", "Immersive Engineering Crate");
 

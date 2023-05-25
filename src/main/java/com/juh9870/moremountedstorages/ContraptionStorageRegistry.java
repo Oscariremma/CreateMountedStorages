@@ -1,10 +1,14 @@
 package com.juh9870.moremountedstorages;
 
+import com.mojang.serialization.Codec;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.contraptions.components.structureMovement.Contraption;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,23 +19,26 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistryEntry;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.*;
+//import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.tags.ITagManager;
 import org.apache.commons.lang3.NotImplementedException;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 
-public abstract class ContraptionStorageRegistry extends ForgeRegistryEntry<ContraptionStorageRegistry> {
+public  class ContraptionStorageRegistry {
 	public static final ItemStackHandler dummyHandler = new ItemStackHandler();
-	public static final DeferredRegister<ContraptionStorageRegistry> STORAGES = DeferredRegister.create(ContraptionStorageRegistry.class, MoreMountedStorages.ID);
-	public static final Supplier<IForgeRegistry<ContraptionStorageRegistry>> REGISTRY = STORAGES.makeRegistry("mountable_storage", RegistryBuilder::new);
+
+	public static final ResourceLocation ID = new ResourceLocation(MoreMountedStorages.ID, "contraptionstorage");
+
+	public static final RegistryBuilder<ContraptionStorageRegistry> builder = new RegistryBuilder<ContraptionStorageRegistry>().setName(ResourceLocation.tryParse(MoreMountedStorages.ID));
+	public static final DeferredRegister<ContraptionStorageRegistry> STORAGES = DeferredRegister.create(ID, MoreMountedStorages.ID);
+
+
+	public static final Supplier<IForgeRegistry<ContraptionStorageRegistry>> REGISTRY = STORAGES.makeRegistry(RegistryBuilder::new);
 	public static final String REGISTRY_NAME = "StorageRegistryId";
 	private static Map<BlockEntityType<?>, ContraptionStorageRegistry> BlockEntityMappingsCache = null;
 
@@ -47,7 +54,6 @@ public abstract class ContraptionStorageRegistry extends ForgeRegistryEntry<Cont
 					} else if (!registry.getPriority().isOverwrite(other.getPriority()))
 						continue;
 				}
-
 				BlockEntityMappingsCache.put(BlockEntityType, registry);
 			}
 		}
@@ -75,11 +81,11 @@ public abstract class ContraptionStorageRegistry extends ForgeRegistryEntry<Cont
 	public static void registerConditionally(IForgeRegistry<ContraptionStorageRegistry> registry, Supplier<Boolean> condition, String registryName, Supplier<ContraptionStorageRegistry> supplier) {
 		ContraptionStorageRegistry entry;
 		if (condition.get()) {
-			entry = supplier.get().setRegistryName(registryName);
+			entry = supplier.get();
 		} else {
-			entry = new DummyHandler().setRegistryName(registryName);
+			entry = new DummyHandler();
 		}
-		registry.register(entry);
+		registry.register(registryName ,entry);
 	}
 
 	/**
@@ -130,12 +136,16 @@ public abstract class ContraptionStorageRegistry extends ForgeRegistryEntry<Cont
 	 *
 	 * @return registry priority
 	 */
-	public abstract Priority getPriority();
+	public Priority getPriority() {
+		throw new NotImplementedException("getPriority() is not implemented for " + getClass().getName());
+	};
 
 	/**
 	 * @return array of Tile Entity types handled by this registry
 	 */
-	public abstract BlockEntityType<?>[] affectedStorages();
+	public BlockEntityType<?>[] affectedStorages(){
+		throw new NotImplementedException("affectedStorages() is not implemented for " + getClass().getName());
+	};
 
 	/**
 	 * @param te Tile Entity
@@ -250,7 +260,7 @@ public abstract class ContraptionStorageRegistry extends ForgeRegistryEntry<Cont
 
 	public static class RegistryConflictException extends RuntimeException {
 		public RegistryConflictException(BlockEntityType<?> teType, Class<? extends ContraptionStorageRegistry> a, Class<? extends ContraptionStorageRegistry> b) {
-			super("Registry conflict: registries " + a.getName() + " and " + b.getName() + " tried to register the same tile entity " + teType.getRegistryName());
+			super("Registry conflict: registries " + a.getName() + " and " + b.getName() + " tried to register the same tile entity");
 		}
 	}
 }

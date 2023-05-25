@@ -58,6 +58,11 @@ public class CompactingDrawerHandler extends StorageDrawerHandler {
 	}
 
 	@Override
+	protected String getRegistryName() {
+		return CompactingDrawerRegistry.REGISTRY_NAME;
+	}
+
+	@Override
 	public int getPriority() {
 		return CompactingDrawerRegistry.CONFIG.getPriority();
 	}

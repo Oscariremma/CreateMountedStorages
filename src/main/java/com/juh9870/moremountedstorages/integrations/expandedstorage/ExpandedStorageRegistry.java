@@ -24,8 +24,10 @@ import java.util.Set;
 
 public class ExpandedStorageRegistry extends ContraptionStorageRegistry {
 
+    public static final String REGISTRY_NAME = Utils.constructId("expandedstorage", "chest");
+
     public static final Config.RegistryInfo CONFIG = new Config.RegistryInfo("storages", "Expanded Storage");
-    public static Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("expandedstorage", "chest"));
+    public static Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 
 
     @Override
@@ -169,6 +171,11 @@ public class ExpandedStorageRegistry extends ContraptionStorageRegistry {
         @Override
         protected ContraptionStorageRegistry registry() {
             return INSTANCE.get();
+        }
+
+        @Override
+        protected String getRegistryName() {
+            return REGISTRY_NAME;
         }
 
         private RuntimeException throwInvalidBlockState() {

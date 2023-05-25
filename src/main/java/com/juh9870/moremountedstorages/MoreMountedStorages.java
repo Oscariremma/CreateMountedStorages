@@ -18,7 +18,8 @@ import com.juh9870.moremountedstorages.integrations.storagedrawers.StorageDrawer
 //import com.juh9870.moremountedstorages.integrations.storageoverhaul.StorageBarrelRegistry;
 //import com.juh9870.moremountedstorages.integrations.storageoverhaul.StorageOverhaulRegistry;
 import com.juh9870.moremountedstorages.integrations.trashcans.TrashCansRegistry;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
@@ -62,10 +63,17 @@ public class MoreMountedStorages {
     // Using method refs causes class loading issues when target mod isn't loaded, so we use lambdas instead
     @SuppressWarnings("Convert2MethodRef")
     @SubscribeEvent
-    public void registerModules(@Nonnull RegistryEvent.Register<ContraptionStorageRegistry> event) {
+    public void registerModules(@Nonnull RegisterEvent event) {
         Config.BUILDER.comment("Mod integration config").push("Integration");
 
-        Registry registry = new Registry(event.getRegistry());
+        if (event.getForgeRegistry() == null || !event.getForgeRegistry().getRegistryName().toString().equals(ContraptionStorageRegistry.ID.toString())) {
+            return;
+        }
+
+        LOGGER.warn("Registering modules");
+
+        Registry registry = new Registry(event.getForgeRegistry());
+
 
         registry.register("minecraft", "storages", () -> new VanillaStorageRegistry(), () -> VanillaStorageRegistry.CONFIG);
 

@@ -15,7 +15,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class PneumaticcraftRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("pneumaticcraft", "smart_chest"));
+
+	public static final String REGISTRY_NAME = Utils.constructId("pneumaticcraft", "smart_chest");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("smart_chest", "PneumaticCraft Smart Chest", 1);
 
 
@@ -64,6 +67,11 @@ public class PneumaticcraftRegistry extends ContraptionStorageRegistry {
 		@Override
 		protected ContraptionStorageRegistry registry() {
 			return INSTANCE.get();
+		}
+
+		@Override
+		protected String getRegistryName() {
+			return REGISTRY_NAME;
 		}
 
 		@Override

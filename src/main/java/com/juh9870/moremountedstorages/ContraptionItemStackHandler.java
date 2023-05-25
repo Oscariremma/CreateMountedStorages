@@ -69,10 +69,12 @@ public abstract class ContraptionItemStackHandler extends ItemStackHandler {
 	 */
 	protected abstract ContraptionStorageRegistry registry();
 
+	protected abstract String getRegistryName();
+
 	@Override
 	public CompoundTag serializeNBT() {
 		CompoundTag nbt = super.serializeNBT();
-		nbt.putString(ContraptionStorageRegistry.REGISTRY_NAME, registry().getRegistryName().toString());
+		nbt.putString(ContraptionStorageRegistry.REGISTRY_NAME, getRegistryName());
 		return nbt;
 	}
 

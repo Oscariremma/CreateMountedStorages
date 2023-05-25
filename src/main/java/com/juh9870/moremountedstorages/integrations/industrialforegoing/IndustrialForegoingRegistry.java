@@ -25,14 +25,16 @@ import static com.juh9870.moremountedstorages.ContraptionItemStackHandler.PRIORI
 
 public class IndustrialForegoingRegistry extends ContraptionStorageRegistry {
 
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("industrialforegoing", "black_hole_unit"));
+	public static final String REGISTRY_NAME = Utils.constructId("industrialforegoing", "black_hole_unit");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("black_hole_unit", "Black Hole Unit", PRIORITY_ITEM_BIN);
 	private static final Lazy<BlockEntityType<?>[]> affectedStorages = Lazy.of(() -> {
 		List<BlockEntityType<?>> values = new ArrayList<>();
 
 		for (Rarity rarity : Rarity.values()) {
 			try {
-				BlockEntityType<?> type = ForgeRegistries.BLOCK_ENTITIES.getValue(new ResourceLocation(Reference.MOD_ID, rarity.name().toLowerCase() + "_black_hole_unit"));
+				BlockEntityType<?> type = ForgeRegistries.BLOCK_ENTITY_TYPES.getValue(new ResourceLocation(Reference.MOD_ID, rarity.name().toLowerCase() + "_black_hole_unit"));
 				if (type != null) values.add(type);
 			} catch (ResourceLocationException ignored) {
 			}
@@ -86,6 +88,11 @@ public class IndustrialForegoingRegistry extends ContraptionStorageRegistry {
 		@Override
 		protected ContraptionStorageRegistry registry() {
 			return INSTANCE.get();
+		}
+
+		@Override
+		protected String getRegistryName() {
+			return REGISTRY_NAME;
 		}
 
 		@Override

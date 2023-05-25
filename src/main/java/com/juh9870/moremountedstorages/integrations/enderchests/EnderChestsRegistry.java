@@ -14,7 +14,9 @@ import shetiphian.enderchests.common.block.BlockEnderChest;
 import shetiphian.enderchests.common.tileentity.TileEntityEnderChest;
 
 public class EnderChestsRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("enderchests", "ender_chest"));
+	public static final String REGISTRY_NAME = Utils.constructId("enderchests", "ender_chest");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("ender_chest", "Ender Chests", 1);
 	public static int managerGeneration = 0;
 

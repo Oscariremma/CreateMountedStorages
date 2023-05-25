@@ -44,6 +44,11 @@ public class EnderChestHandler extends InventoryWrapperStackHandler<Container> {
 	}
 
 	@Override
+	protected String getRegistryName() {
+		return EnderChestsRegistry.REGISTRY_NAME;
+	}
+
+	@Override
 	public int getPriority() {
 		return EnderChestsRegistry.CONFIG.getPriority();
 	}

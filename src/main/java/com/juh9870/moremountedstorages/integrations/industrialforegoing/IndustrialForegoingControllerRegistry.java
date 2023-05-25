@@ -23,10 +23,13 @@ import javax.annotation.Nonnull;
 import static com.juh9870.moremountedstorages.ContraptionItemStackHandler.PRIORITY_ITEM_BIN;
 
 public class IndustrialForegoingControllerRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("industrialforegoing", "black_hole_controller"));
+
+	public static final String REGISTRY_NAME = Utils.constructId("industrialforegoing", "black_hole_controller");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("black_hole_controller", "Black Hole Controller", PRIORITY_ITEM_BIN);
 
-	private static final Lazy<BlockEntityType<?>[]> affectedStorages = Lazy.of(() -> new BlockEntityType<?>[]{ForgeRegistries.BLOCK_ENTITIES.getValue(new ResourceLocation("industrialforegoing:black_hole_controller"))});
+	private static final Lazy<BlockEntityType<?>[]> affectedStorages = Lazy.of(() -> new BlockEntityType<?>[]{ForgeRegistries.BLOCK_ENTITY_TYPES.getValue(new ResourceLocation("industrialforegoing:black_hole_controller"))});
 
 	@Override
 	public Priority getPriority() {
@@ -100,6 +103,11 @@ public class IndustrialForegoingControllerRegistry extends ContraptionStorageReg
 		@Override
 		protected ContraptionStorageRegistry registry() {
 			return INSTANCE.get();
+		}
+
+		@Override
+		protected String getRegistryName() {
+			return REGISTRY_NAME;
 		}
 
 		@Override

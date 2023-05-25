@@ -10,6 +10,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
@@ -60,7 +61,7 @@ public abstract class DoubleChestItemStackHandler<T> extends SmartItemStackHandl
     protected abstract void setSingle(Level level, BlockState state, BlockPos pos);
 
     protected boolean canConnect(BlockState self, BlockState other) {
-        return Objects.equals(self.getBlock().getRegistryName(), other.getBlock().getRegistryName());
+        return Objects.equals(ForgeRegistries.BLOCKS.getKey(self.getBlock()) , ForgeRegistries.BLOCKS.getKey(other.getBlock()));
     }
 
     @Override

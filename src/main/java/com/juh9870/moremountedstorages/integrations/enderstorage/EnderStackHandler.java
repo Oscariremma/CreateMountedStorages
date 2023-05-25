@@ -7,6 +7,8 @@ import com.juh9870.moremountedstorages.ContraptionStorageRegistry;
 import com.juh9870.moremountedstorages.helpers.InventoryWrapperStackHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 public class EnderStackHandler extends InventoryWrapperStackHandler<EnderItemStorage> {
 	protected Frequency frequency;
@@ -69,6 +71,11 @@ public class EnderStackHandler extends InventoryWrapperStackHandler<EnderItemSto
 	@Override
 	protected ContraptionStorageRegistry registry() {
 		return EnderStorageRegistry.INSTANCE.get();
+	}
+
+	@Override
+	protected String getRegistryName() {
+		return EnderStorageRegistry.REGISTRY_NAME;
 	}
 
 	@Override

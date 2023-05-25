@@ -15,7 +15,10 @@ import net.minecraftforge.common.util.Lazy;
 import static com.juh9870.moremountedstorages.ContraptionItemStackHandler.PRIORITY_ITEM_BIN;
 
 public class CompactingDrawerRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("storagedrawers", "compacting_drawer"));
+
+	public static final String REGISTRY_NAME = Utils.constructId("storagedrawers", "compacting_drawer");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("compacting_drawer", "compacting drawers", PRIORITY_ITEM_BIN);
 
 	@Override

@@ -12,7 +12,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.util.Lazy;
 
 public class EnderStorageRegistry extends ContraptionStorageRegistry {
-	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("enderstorage", "ender_chest"));
+	public static final String REGISTRY_NAME = Utils.constructId("enderstorage", "ender_chest");
+
+	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(REGISTRY_NAME);
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("ender_chest", "Ender Storage", 1);
 	public static int managerGeneration = 0;
 

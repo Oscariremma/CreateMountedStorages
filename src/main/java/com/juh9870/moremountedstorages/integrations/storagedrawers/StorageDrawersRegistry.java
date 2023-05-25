@@ -14,6 +14,9 @@ import net.minecraftforge.common.util.Lazy;
 import static com.juh9870.moremountedstorages.ContraptionItemStackHandler.PRIORITY_ITEM_BIN;
 
 public class StorageDrawersRegistry extends ContraptionStorageRegistry {
+
+	public static final String REGISTRY_NAME = Utils.constructId("storagedrawers", "drawer");
+
 	public static final Lazy<ContraptionStorageRegistry> INSTANCE = getInstance(Utils.constructId("storagedrawers", "drawer"));
 	public static final Config.PriorityRegistryInfo CONFIG = new Config.PriorityRegistryInfo("drawer", "standard drawers", PRIORITY_ITEM_BIN);
 

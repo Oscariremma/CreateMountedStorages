@@ -279,6 +279,11 @@ public class StorageDrawerHandler extends ContraptionItemStackHandler implements
 		return StorageDrawersRegistry.INSTANCE.get();
 	}
 
+	@Override
+	protected String getRegistryName() {
+		return StorageDrawersRegistry.REGISTRY_NAME;
+	}
+
 	public class ContraptionDrawerGroup extends StandardDrawerGroup {
 
 		public ContraptionDrawerGroup(int slotCount) {
