@@ -2,7 +2,7 @@ package com.juh9870.moremountedstorages.mixin;
 
 import com.juh9870.moremountedstorages.ContraptionItemStackHandler;
 import com.juh9870.moremountedstorages.ContraptionStorageRegistry;
-import com.simibubi.create.content.contraptions.components.structureMovement.MountedStorage;
+import com.simibubi.create.content.contraptions.MountedStorage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,9 +27,9 @@ public class MountedStorageMixin {
 	@Shadow(remap = false)
 	boolean valid;
 	@Shadow(remap = false)
-	private BlockEntity te;
+	private BlockEntity blockEntity;
 
-	public MountedStorageMixin(BlockEntity te) {
+	public MountedStorageMixin(BlockEntity be) {
 	}
 
 	/**
@@ -38,15 +38,15 @@ public class MountedStorageMixin {
 	// @Inject(at = @At(value = "TAIL"), method = "canUseAsStorage", remap = false, cancellable=true)
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;getCapability(Lnet/minecraftforge/common/capabilities/Capability;)Lnet/minecraftforge/common/util/LazyOptional;"),
 			method = "canUseAsStorage", remap = false, cancellable=true)
-	private static void moremountedstorages__canUseAsStorage(BlockEntity te, CallbackInfoReturnable<Boolean> cir) {
-		ContraptionStorageRegistry registry = ContraptionStorageRegistry.forBlockEntity(te.getType());
+	private static void moremountedstorages__canUseAsStorage(BlockEntity be, CallbackInfoReturnable<Boolean> cir) {
+		ContraptionStorageRegistry registry = ContraptionStorageRegistry.forBlockEntity(be.getType());
 		if (registry != null) {
-			cir.setReturnValue(registry.canUseAsStorage(te));
+			cir.setReturnValue(registry.canUseAsStorage(be));
 			cir.cancel();
 		}
 	}
 
-	@Inject(at = @At(value = "HEAD"), method = "deserialize(Lnet/minecraft/nbt/CompoundTag;)Lcom/simibubi/create/content/contraptions/components/structureMovement/MountedStorage;", remap = false, cancellable = true)
+	@Inject(at = @At(value = "HEAD"), method = "deserialize(Lnet/minecraft/nbt/CompoundTag;)Lcom/simibubi/create/content/contraptions/MountedStorage;", remap = false, cancellable = true)
 	private static void moremountedstorages_deserializeMountedStorage(CompoundTag nbt, CallbackInfoReturnable<MountedStorageMixin> cir) {
 		MountedStorageMixin storage = new MountedStorageMixin(null);
 		storage.handler = new ItemStackHandler();
@@ -82,20 +82,20 @@ public class MountedStorageMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;getCapability(Lnet/minecraftforge/common/capabilities/Capability;)Lnet/minecraftforge/common/util/LazyOptional;"),
 			method = "removeStorageFromWorld", remap = false, cancellable = true)
 	public void moremountedstorages__removeStorageFromWorld(CallbackInfo ci) {
-		ContraptionStorageRegistry registry = ContraptionStorageRegistry.forBlockEntity(te.getType());
+		ContraptionStorageRegistry registry = ContraptionStorageRegistry.forBlockEntity(blockEntity.getType());
 		if (registry == null) return;
-		IItemHandler teHandler = registry.createHandler(te);
-		if (teHandler != null) {
-			handler = (ContraptionItemStackHandler) teHandler;
+		IItemHandler blockEntityHandler = registry.createHandler(blockEntity);
+		if (blockEntityHandler != null) {
+			handler = (ContraptionItemStackHandler) blockEntityHandler;
 			valid = true;
 			ci.cancel();
 		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "addStorageToWorld(Lnet/minecraft/world/level/block/entity/BlockEntity;)V", remap = false, cancellable = true)
-	private void moremountedstorages_addStorageToWorld(BlockEntity te, CallbackInfo ci) {
+	private void moremountedstorages_addStorageToWorld(BlockEntity be, CallbackInfo ci) {
 		if (handler instanceof ContraptionItemStackHandler) {
-			boolean cancel = !((ContraptionItemStackHandler) handler).addStorageToWorld(te);
+			boolean cancel = !((ContraptionItemStackHandler) handler).addStorageToWorld(be);
 			if (cancel) {
 				ci.cancel();
 			}

@@ -4,7 +4,10 @@ import com.juh9870.moremountedstorages.ContraptionItemStackHandler;
 import com.juh9870.moremountedstorages.ContraptionStorageRegistry;
 import com.juh9870.moremountedstorages.MoreMountedStorages;
 import com.juh9870.moremountedstorages.helpers.IStorageExposer;
-import com.simibubi.create.content.contraptions.components.structureMovement.*;
+import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
+import com.simibubi.create.content.contraptions.Contraption;
+import com.simibubi.create.content.contraptions.MountedStorageManager;
+import com.simibubi.create.content.contraptions.MountedStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -65,7 +68,7 @@ public class ContraptionMixin {
 
 	@Inject(at = @At(
 				value = "INVOKE",
-				target = "Lcom/simibubi/create/content/contraptions/components/structureMovement/Contraption;addBlock(Lnet/minecraft/core/BlockPos;Lorg/apache/commons/lang3/tuple/Pair;)V"
+				target = "Lcom/simibubi/create/content/contraptions/Contraption;addBlock(Lnet/minecraft/core/BlockPos;Lorg/apache/commons/lang3/tuple/Pair;)V"
 			),
 			method = "moveBlock",
 			remap = false,
